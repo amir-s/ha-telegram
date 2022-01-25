@@ -15,14 +15,8 @@ const hass = new HomeAssistant({
 });
 
 const openDoor = () => {
-  return hass.services.call("turn_on", "light", {
-    entity_id: "light.dooropenner_on_off",
-  });
-};
-
-const closeDoor = () => {
-  return hass.services.call("turn_off", "light", {
-    entity_id: "light.dooropenner_on_off",
+  return hass.services.call("turn_on", "switch", {
+    entity_id: "switch.sonoff_1001423211_2",
   });
 };
 
@@ -66,28 +60,3 @@ bot.on("message", (msg) => {
     },
   });
 });
-
-const getDoorState = () => {
-  return hass.states.get("light", "dooropenner_on_off").then((state) => {
-    return state.state;
-  });
-};
-
-let count = 0;
-
-const checkState = async () => {
-  const state = await getDoorState();
-
-  if (state === "on") {
-    count++;
-  } else {
-    count = 0;
-  }
-
-  if (count >= 7) {
-    bot.sendMessage(adminId, "Door was open!");
-    await closeDoor();
-  }
-};
-
-setInterval(checkState, 1000);
