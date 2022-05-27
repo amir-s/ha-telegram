@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "docker build -t amirs/ha-telegram .",
+    "push": "docker push amirs/ha-telegram:latest"
   },
   "repository": {
     "type": "git",
