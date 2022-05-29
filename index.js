@@ -28,6 +28,11 @@ bot.on("message", (msg) => {
 
   if (chatId != adminId) return;
 
+  if (msg.text === "exit") {
+    process.exit(1);
+    return;
+  }
+
   if (msg.text === "/open 🚪") {
     bot.sendMessage(chatId, "You sure?", {
       reply_markup: {
@@ -61,3 +66,5 @@ bot.on("message", (msg) => {
     },
   });
 });
+
+bot.on("polling_error", (msg) => console.log(msg));
